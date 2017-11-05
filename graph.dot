@@ -1,0 +1,35 @@
+digraph {
+	compound = "true"
+	newrank = "true"
+	subgraph "root" {
+		"[root] aws_eip.eip_bastion" [label = "aws_eip.eip_bastion", shape = "box"]
+		"[root] aws_instance.inst_bastion" [label = "aws_instance.inst_bastion", shape = "box"]
+		"[root] aws_route53_record.bastion" [label = "aws_route53_record.bastion", shape = "box"]
+		"[root] aws_security_group.sg_bastion" [label = "aws_security_group.sg_bastion", shape = "box"]
+		"[root] provider.aws" [label = "provider.aws", shape = "diamond"]
+		"[root] aws_eip.eip_bastion" -> "[root] aws_instance.inst_bastion"
+		"[root] aws_instance.inst_bastion" -> "[root] aws_security_group.sg_bastion"
+		"[root] aws_instance.inst_bastion" -> "[root] var.availability_zones"
+		"[root] aws_instance.inst_bastion" -> "[root] var.aws_base_ami"
+		"[root] aws_instance.inst_bastion" -> "[root] var.nat_instance_type"
+		"[root] aws_instance.inst_bastion" -> "[root] var.public_subnet_ids"
+		"[root] aws_instance.inst_bastion" -> "[root] var.ssh_key_name"
+		"[root] aws_route53_record.bastion" -> "[root] aws_eip.eip_bastion"
+		"[root] aws_route53_record.bastion" -> "[root] var.route53_zone"
+		"[root] aws_security_group.sg_bastion" -> "[root] provider.aws"
+		"[root] aws_security_group.sg_bastion" -> "[root] var.environment"
+		"[root] aws_security_group.sg_bastion" -> "[root] var.name"
+		"[root] aws_security_group.sg_bastion" -> "[root] var.namespaced"
+		"[root] aws_security_group.sg_bastion" -> "[root] var.private_cidrs"
+		"[root] aws_security_group.sg_bastion" -> "[root] var.public_cidrs"
+		"[root] aws_security_group.sg_bastion" -> "[root] var.tags"
+		"[root] aws_security_group.sg_bastion" -> "[root] var.vpc_id"
+		"[root] output.vpc_public_ips_bastion" -> "[root] aws_eip.eip_bastion"
+		"[root] output.vpc_sg_bastion" -> "[root] aws_security_group.sg_bastion"
+		"[root] root" -> "[root] aws_route53_record.bastion"
+		"[root] root" -> "[root] output.vpc_public_ips_bastion"
+		"[root] root" -> "[root] output.vpc_sg_bastion"
+		"[root] root" -> "[root] var.num_of_azs"
+	}
+}
+
